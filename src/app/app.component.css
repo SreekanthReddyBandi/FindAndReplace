@@ -1,0 +1,28 @@
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+textarea {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.controls {
+  margin-bottom: 10px;
+}
+
+.controls label {
+  margin-right: 10px;
+}
+
+.buttons button {
+  margin-right: 5px;
+}
+
+p {
+  margin-top: 10px;
+  font-weight: bold;
+}
