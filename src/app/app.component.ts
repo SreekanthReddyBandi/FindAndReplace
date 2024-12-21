@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -28,17 +29,24 @@ export class AppComponent {
   findText: string = ''; // Text to find
   replaceText: string = ''; // Text to replace with
   matchCount: number = 0; // Number of matches
+  highlightedText: SafeHtml = ''; // Highlighted text for rendering
   currentIndex: number = 0; // Current position for Replace Next
 
-  // Find and count matches
+  constructor(private sanitizer: DomSanitizer) {
+    this.updateHighlightedText(); // Initial rendering
+  }
+
+  // Find matches and update the highlighted text
   find() {
     if (!this.findText) {
       this.matchCount = 0;
+      this.updateHighlightedText();
       return;
     }
     const regex = new RegExp(this.escapeRegex(this.findText), 'g');
     this.matchCount = (this.text.match(regex) || []).length;
     this.currentIndex = 0;
+    this.updateHighlightedText();
   }
 
   // Replace the next occurrence
@@ -57,7 +65,7 @@ export class AppComponent {
         this.text.substring(end);
 
       this.currentIndex++;
-      this.find(); // Update match count
+      this.find(); // Update match count and highlighted text
     }
   }
 
@@ -66,7 +74,21 @@ export class AppComponent {
     if (!this.findText) return;
     const regex = new RegExp(this.escapeRegex(this.findText), 'g');
     this.text = this.text.replace(regex, this.replaceText);
-    this.find(); // Update match count
+    this.find(); // Update match count and highlighted text
+  }
+
+  // Update the highlighted text for rendering
+  updateHighlightedText() {
+    if (!this.findText) {
+      this.highlightedText = this.sanitizer.bypassSecurityTrustHtml(this.text);
+      return;
+    }
+    const regex = new RegExp(this.escapeRegex(this.findText), 'g');
+    const highlighted = this.text.replace(
+      regex,
+      `<span style="background-color: yellow; font-weight: bold; color: black">${this.findText}</span>`
+    );
+    this.highlightedText = this.sanitizer.bypassSecurityTrustHtml(highlighted);
   }
 
   // Escape special characters in the search text

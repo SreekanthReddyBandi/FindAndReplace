@@ -4,10 +4,13 @@
   font-family: Arial, sans-serif;
 }
 
-textarea {
-  width: 100%;
-  height: auto;
+.text-display {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
   margin-bottom: 10px;
+  white-space: pre-wrap;
+  background-color: #f9f9f9;
 }
 
 .controls {
@@ -25,4 +28,12 @@ textarea {
 p {
   margin-top: 10px;
   font-weight: bold;
+}
+.text-display {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  background-color: #f9f9f9;
 }

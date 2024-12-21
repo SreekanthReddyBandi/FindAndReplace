@@ -1,8 +1,8 @@
 <div class="container">
   <h1>Find and Replace Tool</h1>
 
-  <label>{{text}}</label>
 
+  <!-- Controls for find and replace -->
   <div class="controls">
     <label>
       Find: <input type="text" [(ngModel)]="findText" />
@@ -12,6 +12,7 @@
     </label>
   </div>
 
+  <!-- Buttons for operations -->
   <div class="buttons">
     <button (click)="find()">Find</button>
     <button (click)="replaceNext()">Replace Next</button>
@@ -19,4 +20,11 @@
   </div>
 
   <p>Number of matches: {{ matchCount }}</p>
+
+  <!-- Display the formatted text -->
+  <div
+    class="text-display"
+    [innerHTML]="highlightedText"
+  ></div>
+
 </div>
